@@ -15,7 +15,7 @@ export class Common {
   */
   public static jsonParse(_data) {
     try {
-      return JSON.parse(_data.resp);
+      return JSON.parse(_data);
     } catch (e) {
       return {
         error: 'Invalid server response. Please try it again.',

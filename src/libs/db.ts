@@ -20,7 +20,7 @@ export class HeroStorage {
 
   opendb() {
     return new Promise((success, error) => {
-      this.indexedDBObj = indexedDB.open('heroDojo', 6);
+      this.indexedDBObj = indexedDB.open('heroDojo', 1);
       this.indexedDBObj.onsuccess = function(e) {
         success(e.target.result);
       };

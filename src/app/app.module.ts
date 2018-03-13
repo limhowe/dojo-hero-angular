@@ -13,6 +13,7 @@ import { HeroesComponent } from './heroes/heroes.component'
 import { LandingComponent } from './landing/landing.component'
 
 //Services
+import { HeroStorage } from '../libs/db';
 import { HeroService } from '../services/hero.service';
 import { HeroFactoryService } from '../services/hero-factory.service';
 
@@ -29,6 +30,7 @@ import { HeroFactoryService } from '../services/hero-factory.service';
     RouterModule.forRoot(routes, {useHash: false})
   ],
   providers: [
+    HeroStorage,
     HeroService,
     HeroFactoryService
   ],
