@@ -1,4 +1,8 @@
-<div id="columns">
+<div id="columns"
+        infiniteScroll
+		    [infiniteScrollDistance]="2"
+		    [infiniteScrollThrottle]="50"
+		    (scrolled)="onScroll()" >
   <figure *ngFor="let hero of heroes">
     <img src="{{ hero.attributes.portrait }}">
     <figcaption>{{ hero.attributes.name }}</figcaption>

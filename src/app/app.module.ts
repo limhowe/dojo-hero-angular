@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { AppComponent } from './app.component';
 import { routes } from '../routes/routes';
@@ -26,6 +27,7 @@ import { HeroFactoryService } from '../services/hero-factory.service';
   ],
   imports: [
     BrowserModule,
+    InfiniteScrollModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: false})
   ],

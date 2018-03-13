@@ -16,12 +16,22 @@ export class HeroesComponent {
   constructor(
     public heroFactory: HeroFactoryService
   ) {
-
     this
     .heroFactory
     .heroesEmmiter
     .subscribe((heroes) => {
-      this.heroes = heroes;
+      this.heroes = this.heroes.concat(heroes);
+      console.log('heroes updated', this.heroes)
     });
   }
+
+  onScroll() {
+    let lastHero = this.heroes.slice(-1).pop()
+    let dbKey = lastHero ? lastHero.dbKey : lastHero
+
+    this
+    .heroFactory
+    .getHerosFromDB(dbKey)
+	}
+
 }

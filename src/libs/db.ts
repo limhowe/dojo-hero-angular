@@ -120,6 +120,49 @@ export class HeroStorage {
     });
   }
 
+  getNext(_modelName: string, dbKey: number, limit: number = 10) {
+    return new Promise((success, error) => {
+      this
+      .opendb()
+      .then((db: any) => {
+        var trans = db.transaction(_modelName, IDBTransaction.READ_ONLY);
+        var store = trans.objectStore(_modelName);
+        var items = [];
+        var cursorRequest;
+        if (dbKey) {
+          var range = IDBKeyRange.lowerBound(Number(dbKey)+1);
+          console.log('range = ', range, dbKey)
+          cursorRequest =  store.openCursor(range)
+        } else {
+            console.log('no range', dbKey)
+            cursorRequest = store.openCursor();
+        }
+
+        trans.oncomplete = function(evt) {
+            success({
+              data: items
+            });
+        };
+
+        cursorRequest.onsuccess = function(evt) {
+            var cursor = evt.target.result;
+            if (cursor) {
+              // Adding db key to value object
+              cursor.value.dbKey = cursor.key;
+              console.log('getting key = ',cursor.key)
+              items.push(cursor.value);
+              if (items.length < limit) {
+                  cursor.continue();
+              }
+            }
+        };
+      })
+      .catch((e) => {
+        error(e);
+      });
+    });
+  }
+
   update(_modelName: string, _data: any, _key: number) {
     return new Promise((success, error) => {
       this

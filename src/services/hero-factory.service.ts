@@ -18,16 +18,17 @@ export class HeroFactoryService {
     private heroStorage: HeroStorage
   ) { }
 
-  private getHerosFromDB() {
+  private getHerosFromDB(dbKey: number, limit: number = 10) {
+
+    console.log('dbKey = ', dbKey )
     return new Promise((success, error) =>  {
       this
         .heroStorage
-        .getAll(this.DB_COLLECTION_NAME)
+        .getNext(this.DB_COLLECTION_NAME, dbKey, limit)
         .then((resp: any) => {
           this.heroes = [];
           let heroListdata = resp.data;
           let self = this;
-
           async
             .each(heroListdata, function(_hero, callback) {
               self.
@@ -38,6 +39,9 @@ export class HeroFactoryService {
               if (err) {
                 console.log('Something happened:', err);
               } else {
+                self
+                  .heroesEmmiter
+                  .next(self.heroes);
                 success();
               }
             });
@@ -53,7 +57,6 @@ export class HeroFactoryService {
       .heroStorage
       .clear(this.DB_COLLECTION_NAME)
       .then((resp) => {
-        console.log('clear sucess', _heroes)
         let self = this;
         async
           .each(_heroes, function(_hero, callback) {
@@ -68,13 +71,10 @@ export class HeroFactoryService {
             if (err) {
               console.log('Something happened:', err);
             } else {
-              console.log('load sucess')
               self
                 .getHerosFromDB()
                 .then((heroes) => {
-                  self
-                    .heroesEmmiter
-                    .next(self.heroes);
+                  console.log('loaded succssfully')
                 });
             }
           });

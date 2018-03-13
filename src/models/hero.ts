@@ -6,9 +6,12 @@ export class Hero {
   id: string;
   @JsonProperty({clazz: HeroAttribute, name: 'attributes'})
   attributes: HeroAttribute;
+  @JsonProperty('dbKey')
+  dbKey: string;
 
   constructor() {
     this.id = undefined;
     this.attributes = undefined;
+    this.dbKey = undefined;
   }
 }
