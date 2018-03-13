@@ -31,7 +31,7 @@ export class HeroesComponent {
 
     this
     .heroFactory
-    .getHerosFromDB(dbKey)
+    .getHerosFromDB(Number(dbKey))
 	}
 
 }

@@ -18,9 +18,7 @@ export class HeroFactoryService {
     private heroStorage: HeroStorage
   ) { }
 
-  private getHerosFromDB(dbKey: number, limit: number = 10) {
-
-    console.log('dbKey = ', dbKey )
+  getHerosFromDB (dbKey: number, limit: number = 10) {
     return new Promise((success, error) =>  {
       this
         .heroStorage
@@ -72,7 +70,7 @@ export class HeroFactoryService {
               console.log('Something happened:', err);
             } else {
               self
-                .getHerosFromDB()
+                .getHerosFromDB(0)
                 .then((heroes) => {
                   console.log('loaded succssfully')
                 });

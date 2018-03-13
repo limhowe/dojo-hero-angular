@@ -130,7 +130,7 @@ export class HeroStorage {
         var items = [];
         var cursorRequest;
         if (dbKey) {
-          var range = IDBKeyRange.lowerBound(Number(dbKey)+1);
+          var range = IDBKeyRange.lowerBound(dbKey+1);
           console.log('range = ', range, dbKey)
           cursorRequest =  store.openCursor(range)
         } else {
