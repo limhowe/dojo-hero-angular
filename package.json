@@ -6,7 +6,8 @@
     "ng": "ng",
     "start": "node server.ts",
     "build": "ng build --prod",
-    "serve": "ng serve"
+    "serve": "ng serve",
+    "postinstall": "ng build --aot -prod"
   },
   "private": true,
   "dependencies": {
